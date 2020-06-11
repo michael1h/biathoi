@@ -1,0 +1,146 @@
+.toeic-item {
+    margin-bottom: 27px;
+}
+.toeic-item.toeic-item-2 {
+    padding: 8px 10px 10px 30px;
+}
+
+.toeic-item-1 .link-wrap, .toeic-item-2 {
+    border-radius: 50px;
+    transition: box-shadow .2s linear;
+}
+
+.toeic-item-2 {
+    margin-top: 15px;
+}
+
+.toeic-item {
+    background-color: #fff;
+    border-radius: 50px;
+    padding: 0 10px 0 0;
+    overflow: hidden;
+}
+
+.toeic-item.toeic-item-2 .calendar {
+    float: left;
+}
+
+.calendar {
+    position: relative;
+    width: 54px;
+    height: 61px;
+    background: url(https://tienganhmoingay.com/static/ToeicTests/images/calendar.png) no-repeat;
+    background-size: cover;
+}
+
+.calendar .year {
+    font-size: 12px;
+    color: #fff;
+    top: 4px;
+}
+.calendar .year, .calendar .month, .calendar .date {
+    position: absolute;
+    font-family: roboto-bold;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.calendar .month {
+    font-size: 14px;
+    top: 42px;
+}
+.calendar .month, .calendar .date {
+    color: #666;
+}
+.calendar .year, .calendar .month, .calendar .date {
+    position: absolute;
+    font-family: roboto-bold;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.calendar .date {
+    font-size: 20px;
+    top: 20px;
+}
+.calendar .month, .calendar .date {
+    color: #666;
+}
+.calendar .year, .calendar .month, .calendar .date {
+    position: absolute;
+    font-family: roboto-bold;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.toeic-item.toeic-item-2 .content {
+    padding: 6px 0 0 15px;
+    position: relative;
+}
+
+.toeic-item .content {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 10px 0 10px 10px;
+}
+
+.info {
+    display: block;
+    padding: 3px 25px 3px 12px;
+    min-width: 111px;
+    background-color: #33abe5;
+    color: #fff;
+    font-size: 15px;
+    font-family: roboto-bold;
+    border-radius: 40px;
+}
+
+.info.info-time {
+    background-color: #7bd7b1;
+    margin-top: 3px;
+}
+.info {
+    display: block;
+    padding: 3px 25px 3px 12px;
+    min-width: 111px;
+    background-color: #33abe5;
+    color: #fff;
+    font-size: 15px;
+    font-family: roboto-bold;
+    border-radius: 40px;
+}
+
+.info span {
+    margin-right: 10px;
+}
+.glyphicon {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: glyphicons halflings;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.toeic-item.toeic-item-2 .content .status-label, .toeic-item.toeic-item-1 .content .status-label {
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    margin-top: -20px;
+}
+.status-label {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-color: #ed1e24;
+    color: #fff;
+    text-transform: uppercase;
+    font-family: roboto-bold;
+    font-size: 14px;
+    border-radius: 50%;
+    text-align: center;
+    padding: 8px 0;
+}

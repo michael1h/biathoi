@@ -30,7 +30,7 @@ export class TodoComponent implements OnInit {
 
   ngOnInit() {
     this.addForm = this.formBuilder.group({
-      item: ['', [Validators.required, Validators.minLength(3)]],
+      item: ['', [Date, Validators.minLength(3)]],
     });
 
     this.addForm.statusChanges.subscribe(data => this.onStatusChange(data));

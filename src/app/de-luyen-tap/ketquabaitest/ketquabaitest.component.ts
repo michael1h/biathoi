@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-// import { BaiTestComponent } from "./bai-test.component";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
 @Component({
@@ -15,7 +14,7 @@ export class KetQuaBaiTestComponent implements OnInit {
   trungBinh1Cau : number = 0;
   totalTime : number = 0;
   totalCorrect: number = 0;
-  part: string;
+  url: string;
   isLoading = false;
   totalQuestion: number = 0;
   constructor(private router: Router) {
@@ -24,7 +23,7 @@ export class KetQuaBaiTestComponent implements OnInit {
     this.minute = this.router.getCurrentNavigation().extras.state.minute;
     this.seconds = this.router.getCurrentNavigation().extras.state.seconds;
     this.totalCorrect = this.router.getCurrentNavigation().extras.state.totalCorrect;
-    this.part = this.router.getCurrentNavigation().extras.state.part;
+    this.url = this.router.getCurrentNavigation().extras.state.part;
     this.totalQuestion = this.router.getCurrentNavigation().extras.state.totalQuestion;
   }
 

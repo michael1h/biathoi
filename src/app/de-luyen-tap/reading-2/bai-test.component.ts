@@ -5,16 +5,10 @@ import { trigger, style, animate, transition } from "@angular/animations";
 import { Title } from "@angular/platform-browser";
 import { forwardRef, Input } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import {
-  faEnvelopeOpen,
-  faArrowAltCircleRight,
-  faCheckCircle,
-  faLightbulb,
-  faWindowMaximize
-} from "@fortawesome/free-regular-svg-icons";
+import { faEnvelopeOpen,faArrowAltCircleRight,faCheckCircle,faLightbulb,faWindowMaximize } from "@fortawesome/free-regular-svg-icons";
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { PART3, PART4, URLAPI } from 'src/app/constant';
+import { PART6, URLAPI } from 'src/app/constant';
 
 export const fadeInOut = (name = "fadeInOut", duration = 0.1) =>
   trigger(name, [
@@ -36,7 +30,11 @@ export const fadeInOut = (name = "fadeInOut", duration = 0.1) =>
     fadeInOut("fadeInOut-3", 1)
   ]
 })
-export class BaiTest2Component implements OnInit, OnDestroy {
+export class BaiTestReading2Component implements OnInit, OnDestroy {
+  cauHoi: any;
+  dichDoanVan1: any;
+  selectedItemChoose3: any = '';
+  selectedItem3: any;
   constructor(
     private router: Router,
     private titleService: Title,
@@ -152,15 +150,104 @@ export class BaiTest2Component implements OnInit, OnDestroy {
       this.selectedItemChoose1 = dapAn;
     } else if (index == 2) {
       this.selectedItemChoose2 = dapAn;
+    } else if (index == 3) {
+      this.selectedItemChoose3 = dapAn;
+    }
+  }
+
+  checkKiemTra() {
+    // checkCauTiepTheo && selectedItemChoose0 
+    // && selectedItemChoose1 && selectedItemChoose2 && selectedItemChoose3
+    if (this.baiTests) { 
+      let totalCau = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi.length;
+      switch(totalCau) {
+        case 2 : 
+          if (this.checkCauTiepTheo && this.selectedItemChoose0 && this.selectedItemChoose1) {
+            return true;
+          } else {
+            return false;
+          }
+        case 3 : 
+        if (this.checkCauTiepTheo && this.selectedItemChoose0 && this.selectedItemChoose1 && this.selectedItemChoose2) {
+            return true;
+          } else {
+            return false;
+          }
+        case 4 : 
+        if (this.checkCauTiepTheo && this.selectedItemChoose0 && this.selectedItemChoose1 && this.selectedItemChoose2 
+           && this.selectedItemChoose3) {
+            return true;
+          } else {
+            return false;
+          }
+      }
+    }
+  }
+
+  checkOpenModal() {
+    // selectedItemChoose0 == '' || selectedItemChoose1  == '' || 
+    // selectedItemChoose2  == '' || selectedItemChoose3  == ''
+    if (this.baiTests) { 
+      let totalCau = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi.length;
+      switch(totalCau) {
+        case 2 : 
+          if (this.selectedItemChoose0 == '' || this.selectedItemChoose1 == '') {
+            return true;
+          } else {
+            return false;
+          }
+        case 3 : 
+          if (this.selectedItemChoose0 == '' || this.selectedItemChoose1 == '' || this.selectedItemChoose2 == '') {
+            return true;
+          } else {
+            return false;
+          }
+        case 4 : 
+          if (this.selectedItemChoose0 == '' || this.selectedItemChoose1 == '' || this.selectedItemChoose2 == ''
+          || this.selectedItemChoose3 == '') {
+            return true;
+          } else {
+            return false;
+          }
+      }
+    }
+  }
+
+  checkNextCauHoi() {
+    // !checkCauTiepTheo && selectedItemChoose0 != '' && 
+    // selectedItemChoose1  != '' && selectedItemChoose2  != '' && selectedItemChoose3  != ''
+    if (this.baiTests) { 
+      let totalCau = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi.length;
+      switch(totalCau) {
+        case 2 : 
+          if (!this.checkCauTiepTheo && this.selectedItemChoose0 != '' && this.selectedItemChoose1 != '') {
+            return true;
+          } else {
+            return false;
+          }
+        case 3 : 
+        if (!this.checkCauTiepTheo && this.selectedItemChoose0 != '' && this.selectedItemChoose1 != '' && this.selectedItemChoose2 != '') {
+            return true;
+          } else {
+            return false;
+          }
+        case 4 : 
+        if (!this.checkCauTiepTheo && this.selectedItemChoose0 != '' && this.selectedItemChoose1 != '' && this.selectedItemChoose2 != ''
+           && this.selectedItemChoose3 != '') {
+            return true;
+          } else {
+            return false;
+          }
+      }
     }
   }
 
   ngOnInit() {
     this.isLoading = true;
-    let id = this.route.snapshot.paramMap.get('id');
-    if (id == '3') {
-      this.titleService.setTitle(PART3);
-      this.http.get(URLAPI + 'part3').subscribe(data => {
+    // let id = this.route.snapshot.paramMap.get('id');
+    // if (id == '6') {
+      this.titleService.setTitle(PART6);
+      this.http.get(URLAPI + 'part6').subscribe(data => {
         this.baiTests = data;
         this.getDetail();
         this.isLoading = false;
@@ -168,21 +255,12 @@ export class BaiTest2Component implements OnInit, OnDestroy {
       this.checkCauTiepTheo = true;
       this.showCorrect = false;
       this.countDown();
-    } else if (id == '4') {
-      this.titleService.setTitle(PART4);
-      this.http.get(URLAPI + 'part4').subscribe(data => {
-        this.baiTests = data;
-        this.getDetail();
-        this.isLoading = false;
-      });
-      this.checkCauTiepTheo = true;
-      this.showCorrect = false;
-      this.countDown();
-    }
+    // } else {
+    //   this.isLoading = false;
+    // }
   }
 
-  totalCau: number = 3;
-
+  totalCauHoi: number = 2;
   nextCauHoi() {
     this.selectedItem1 = "";
     this.checkOpenModalOrNextCauHoi = false;
@@ -199,7 +277,7 @@ export class BaiTest2Component implements OnInit, OnDestroy {
     }
     this.checkOpenModalNextCauHoi = false;
 
-    if (this.indexCauHoi < this.totalCau) {
+    if (this.indexCauHoi < this.totalCauHoi) {
         this.indexCauHoi += 1;
         this.getDetail();
         this.checkCauTiepTheo = true;
@@ -210,51 +288,34 @@ export class BaiTest2Component implements OnInit, OnDestroy {
         this.selectedItemChoose0 = "";
         this.selectedItemChoose1 = "";
         this.selectedItemChoose2 = "";
+        this.selectedItemChoose3 = "";
     } else {
       this.start();
-      let id = this.route.snapshot.paramMap.get('id');
-      if (id == '3') {
-        this.router.navigate(['/ket-qua-bai-thi'], {
-          state: { 
-            score: this.score,
-            hours: this.hours,
-            minute: this.minute,
-            seconds: this.seconds,
-            totalCorrect: this.totalCorrect,
-            part: 'part/3',
-            totalQuestion: this.totalCau + 1
-            }
-        });
-      } else if (id == '4') {
-        this.router.navigate(['/ket-qua-bai-thi'], {
-          state: { 
-            score: this.score,
-            hours: this.hours,
-            minute: this.minute,
-            seconds: this.seconds,
-            totalCorrect: this.totalCorrect,
-            part: 'part/4',
-            totalQuestion: this.totalCau + 1
-            }
-        });
-      }
-      
+      this.router.navigate(['/ket-qua-bai-thi'], {
+        state: { 
+          score: this.score,
+          hours: this.hours,
+          minute: this.minute,
+          seconds: this.seconds,
+          totalCorrect: this.totalCorrect,
+          part: '/reading-part6',
+          totalQuestion: this.totalCauHoi + 1
+          }
+      });
     }
   }
 
   getDetail() {
-    this.mp3 = this.baiTests.listen.listening[this.indexCauHoi].srcMp3;
-    this.image = this.baiTests.listen.listening[this.indexCauHoi].linkImage;
-    this.goiY = this.baiTests.listen.listening[
-      this.indexCauHoi
-    ].listQuestion[0].goiY;
-    this.transcriptAudio = this.baiTests.listen.listening[this.indexCauHoi].transcript;
-    this.giaiThich = this.baiTests.listen.listening[ 
-      this.indexCauHoi
-    ].listQuestion[0].giaiThich;
-    this.arrayQuestionAnswer = this.baiTests.listen.listening[
-      this.indexCauHoi
-    ].listQuestion;
+    this.cauHoi = this.baiTests.toeic.listDoanVan[this.indexCauHoi].doanVan1;
+    this.dichDoanVan1 = this.baiTests.toeic.listDoanVan[this.indexCauHoi].dichDoanVan1;
+    const cauA = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[0].cauA;
+    const cauB = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[0].cauB;
+    const cauC = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[0].cauC;
+    const cauD = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[0].cauD;
+    this.cauDung = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[0].cauDung;
+    this.goiY = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[0].goiY;
+    this.giaiThich = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[0].giaiThich;
+    this.arrayQuestionAnswer = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi;
   }
 
   isVisible(event){
@@ -279,6 +340,12 @@ export class BaiTest2Component implements OnInit, OnDestroy {
       } else {
         return false;
       }
+    } else if (index == 3) {
+      if (dapAn == this.selectedItem3) {
+        return true;
+      } else {
+        return false;
+      }
     }
     return false; 
   }
@@ -288,15 +355,36 @@ export class BaiTest2Component implements OnInit, OnDestroy {
     this.checkCauTiepTheo = false;
     this.checkGoiY = true;
     this.show = false;
-    this.selectedItem0 = this.selectedItemChoose0;
-    this.selectedItem1 = this.selectedItemChoose1;
-    this.selectedItem2 = this.selectedItemChoose2;
-    const dapAnDung0 = this.baiTests.listen.listening[this.indexCauHoi]
-      .listQuestion[0].cauDung;
-    const dapAnDung1 = this.baiTests.listen.listening[this.indexCauHoi]
-    .listQuestion[1].cauDung;
-    const dapAnDung2 = this.baiTests.listen.listening[this.indexCauHoi]
-    .listQuestion[2].cauDung;
+    let totalCau = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi.length;
+    let dapAnDung0 = '';
+    let dapAnDung1 = '';
+    let dapAnDung2 = '';
+    let dapAnDung3 = '';
+    switch(totalCau) {
+      case 2:
+        this.selectedItem0 = this.selectedItemChoose0;
+        this.selectedItem1 = this.selectedItemChoose1;
+        dapAnDung0 = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[0].cauDung;
+        dapAnDung1 = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[1].cauDung;
+        break;
+      case 3: 
+        this.selectedItem0 = this.selectedItemChoose0;
+        this.selectedItem1 = this.selectedItemChoose1;
+        this.selectedItem2 = this.selectedItemChoose2;
+        dapAnDung0 = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[0].cauDung;
+        dapAnDung1 = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[1].cauDung;
+        dapAnDung2 = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[2].cauDung;
+      case 4: 
+        this.selectedItem0 = this.selectedItemChoose0;
+        this.selectedItem1 = this.selectedItemChoose1;
+        this.selectedItem2 = this.selectedItemChoose2;
+        this.selectedItem3 = this.selectedItemChoose3;
+        dapAnDung0 = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[0].cauDung;
+        dapAnDung1 = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[1].cauDung;
+        dapAnDung2 = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[2].cauDung;
+        dapAnDung3 = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[3].cauDung;
+    }
+    
     if (this.selectedItemChoose0 == dapAnDung0) {
       this.score += 100/12;
     }
@@ -306,7 +394,11 @@ export class BaiTest2Component implements OnInit, OnDestroy {
     if (this.selectedItemChoose2 == dapAnDung2) {
       this.score += 100/12;
     }
-    if (this.selectedItemChoose0 == dapAnDung0 && this.selectedItemChoose1 == dapAnDung1 && this.selectedItemChoose2 == dapAnDung2) {
+    if (this.selectedItemChoose3 == dapAnDung3) {
+      this.score += 100/12;
+    }
+    if (this.selectedItemChoose0 == dapAnDung0 && this.selectedItemChoose1 == dapAnDung1 
+        && this.selectedItemChoose2 == dapAnDung2 && this.selectedItemChoose3 == dapAnDung3) {
       this.showCorrect = true;
       this.totalCorrect += 1;
     } else {

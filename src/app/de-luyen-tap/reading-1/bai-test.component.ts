@@ -1,14 +1,22 @@
-import { Component, OnInit,  OnDestroy } from "@angular/core";
+import { Component, OnInit,  OnDestroy, 
+} from "@angular/core";
 import { TemplateRef } from "@angular/core";
 import { BsModalService, BsModalRef } from "ngx-bootstrap";
 import { trigger, style, animate, transition } from "@angular/animations";
 import { Title } from "@angular/platform-browser";
-import { forwardRef, Input } from "@angular/core";
+import { forwardRef, Input, 
+ } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { faEnvelopeOpen, faArrowAltCircleRight, faCheckCircle, faLightbulb, faWindowMaximize } from "@fortawesome/free-regular-svg-icons";
+import {
+  faEnvelopeOpen,
+  faArrowAltCircleRight,
+  faCheckCircle,
+  faLightbulb,
+  faWindowMaximize
+} from "@fortawesome/free-regular-svg-icons";
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { PART1, URLAPI } from 'src/app/constant';
+import { PART5, URLAPI } from 'src/app/constant';
 
 export const fadeInOut = (name = "fadeInOut", duration = 0.1) =>
   trigger(name, [
@@ -30,15 +38,18 @@ export const fadeInOut = (name = "fadeInOut", duration = 0.1) =>
     fadeInOut("fadeInOut-3", 1)
   ]
 })
-export class BaiTestComponent implements OnInit, OnDestroy {
+
+export class BaiTestReading1Component implements OnInit, OnDestroy {
   
   constructor(
     private router: Router,
     private titleService: Title,
     private modalService: BsModalService,
     private http: HttpClient
-  ) {}
+  ) {
 
+  }
+  cauHoi: any;
   baiTests: any;
   modalRef: BsModalRef;
   mp3: any;
@@ -73,6 +84,7 @@ export class BaiTestComponent implements OnInit, OnDestroy {
   seconds: number = 0;
   minute: number = 0;
   hours: number = 0;
+  items: RadioButtonItem[] = [];
 
   clearTimer(): void {
     clearInterval(this.intervalId);
@@ -129,33 +141,33 @@ export class BaiTestComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.titleService.setTitle(PART1);
+    this.titleService.setTitle(PART5);
     this.countDown();
     this.start();
-    this.http.get(URLAPI  + 'part1').subscribe(data => {
-      this.baiTests = data;
-      this.mp3 = this.baiTests.listen.listening[this.indexCauHoi].srcMp3;
-      this.image = this.baiTests.listen.listening[this.indexCauHoi].linkImage;
-      this.goiY = this.baiTests.listen.listening[
-        this.indexCauHoi
-      ].listQuestion[0].goiY;
-      this.giaiThich = this.baiTests.listen.listening[
-        this.indexCauHoi
-      ].listQuestion[0].giaiThich;
-      this.cauDung = this.baiTests.listen.listening[
-        this.indexCauHoi
-      ].listQuestion[0].cauDung;
+    this.http.get(URLAPI + 'part5').subscribe(data => {
+      this.baiTests = data; //listCauTraLoi
+      this.getDetail();
     });
     this.checkCauTiepTheo = true;
     this.showCorrect = false;
   }
 
-  items: RadioButtonItem[] = [
-    { name: "A", value: "a" },
-    { name: "B", value: "b" },
-    { name: "C", value: "c" },
-    { name: "D", value: "d" }
-  ];
+  getDetail() {
+    this.cauHoi = this.baiTests.toeic.listDoanVan[this.indexCauHoi].doanVan1;
+    const cauA = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[0].cauA;
+    const cauB = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[0].cauB;
+    const cauC = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[0].cauC;
+    const cauD = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[0].cauD;
+    this.cauDung = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[0].cauDung;
+    this.goiY = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[0].goiY;
+    this.giaiThich = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[0].giaiThich;
+    this.items = [
+      { name: cauA, value: 'a' },
+      { name: cauB, value: 'b' },
+      { name: cauC, value: 'c' },
+      { name: cauD, value: 'd' }
+    ];
+  }
 
   nextCauHoi() {
     this.selectedItem1 = "";
@@ -176,14 +188,7 @@ export class BaiTestComponent implements OnInit, OnDestroy {
     if (this.indexCauHoi < 5) {
       if (this.selectedItem) {
         this.indexCauHoi += 1;
-        this.mp3 = this.baiTests.listen.listening[this.indexCauHoi].srcMp3;
-        this.image = this.baiTests.listen.listening[this.indexCauHoi].linkImage;
-        this.goiY = this.baiTests.listen.listening[
-          this.indexCauHoi
-        ].listQuestion[0].goiY;
-        this.giaiThich = this.baiTests.listen.listening[
-          this.indexCauHoi
-        ].listQuestion[0].giaiThich;
+        this.getDetail();
         this.selectedItem = "";
         this.checkCauTiepTheo = true;
         this.checkKiemTraCauHoi = false;
@@ -192,14 +197,7 @@ export class BaiTestComponent implements OnInit, OnDestroy {
         this.showInCorrect = false;
       } else {
         this.indexCauHoi += 1;
-        this.mp3 = this.baiTests.listen.listening[this.indexCauHoi].srcMp3;
-        this.image = this.baiTests.listen.listening[this.indexCauHoi].linkImage;
-        this.goiY = this.baiTests.listen.listening[
-          this.indexCauHoi
-        ].listQuestion[0].goiY;
-        this.giaiThich = this.baiTests.listen.listening[ 
-          this.indexCauHoi
-        ].listQuestion[0].giaiThich;
+        this.getDetail();
         this.selectedItem = "";
         this.checkCauTiepTheo = true;
         this.checkKiemTraCauHoi = false;
@@ -216,7 +214,7 @@ export class BaiTestComponent implements OnInit, OnDestroy {
           minute: this.minute,
           seconds: this.seconds,
           totalCorrect: this.totalCorrect,
-          part: 'part1',
+          part: 'part5',
           totalQuestion: 6
           }
       });
@@ -229,9 +227,7 @@ export class BaiTestComponent implements OnInit, OnDestroy {
     this.checkGoiY = true;
     this.show = false;
     this.selectedItem1 = this.selectedItem;
-    const dapAnDung = this.baiTests.listen.listening[this.indexCauHoi]
-      .listQuestion[0].cauDung;
-    if (this.selectedItem == dapAnDung) {
+    if (this.selectedItem == this.cauDung) {
       this.score += 100/6;
       this.showCorrect = true;
       this.selectedItem = "";
@@ -255,18 +251,6 @@ export class BaiTestComponent implements OnInit, OnDestroy {
     this.showCorrect = false;
     this.showInCorrect = false;
   }
-
-  // playMp3(mp3) {
-  //   this.checkPlayMp3 = 1;
-  //   if (this.audio) {
-  //     this.audio.pause();
-  //     this.audio = null;
-  //   }
-  //   this.audio = new Audio(mp3);
-  //   this.audio.load();
-  //   alert(this.audio.duration);
-  //   this.audio.play();
-  // }
 }
 
 export interface RadioButtonItem {

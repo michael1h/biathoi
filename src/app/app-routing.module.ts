@@ -8,10 +8,13 @@ import { DeThiRutGonComponent } from './de-thi-rut-gon/de-thi-rut-gon.component'
 import { DeThiFullComponent } from './de-thi-full/de-thi-full.component';
 import { DeLuyenTapComponent } from './de-luyen-tap/luyen-tap.component';
 import { BaiTestComponent } from './de-luyen-tap/bai-test/bai-test.component';
-import { KetQuaBaiTestComponent } from './de-luyen-tap/bai-test/ketquabaitest.component';
+import { KetQuaBaiTestComponent } from './de-luyen-tap/ketquabaitest/ketquabaitest.component';
 import { BaiTest1Component } from './de-luyen-tap/bai-test1/bai-test.component';
 import { BaiTest2Component } from './de-luyen-tap/bai-test2/bai-test.component';
-// import { KetQuaBaiTestComponent1 } from './de-luyen-tap/bai-test1/ketquabaitest.component';
+import { BaiTestReading1Component } from './de-luyen-tap/reading-1/bai-test.component';
+import { BaiTestReading2Component } from './de-luyen-tap/reading-2/bai-test.component';
+import { BaiTestReading3Component } from './de-luyen-tap/reading-3/bai-test.component';
+import { BaiTestRutGonComponent } from './de-thi-rut-gon/bai-test/bai-test.component';
 
 const routes: Routes = [
   {
@@ -30,7 +33,13 @@ const routes: Routes = [
   { path: 'de-thi-rut-gon', component: DeThiRutGonComponent },
   { path: 'bai-test-rut-gon-part1', component: BaiTestComponent },
   { path: 'bai-test-rut-gon-part2', component: BaiTest1Component },
-  { path: 'bai-test-rut-gon-part3', component: BaiTest2Component }
+  { path: 'bai-test-rut-gon-part/:id', component: BaiTest2Component },
+  { path: 'reading-part5', component: BaiTestReading1Component },
+  { path: 'reading-part6', component: BaiTestReading2Component },
+  { path: 'reading-part7/:id', component: BaiTestReading3Component },
+  { path: 'mini-test/:name', component: BaiTestRutGonComponent }
+
+  // BaiTestReading1Component
 ];
 
 @NgModule({

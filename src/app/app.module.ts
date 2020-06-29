@@ -22,21 +22,27 @@ import { BaiTestComponent } from './de-luyen-tap/bai-test/bai-test.component';
 import { BaiTest1Component } from './de-luyen-tap/bai-test1/bai-test.component';
 import { BaiTest2Component } from './de-luyen-tap/bai-test2/bai-test.component';
 import { RadioButtonComponent } from './shared/radio-button/radio-button.component';
-import { RadioButton1Component } from './shared/radio-button1/radio-button.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faTrashAlt, faSquare, faCheckSquare, faEnvelopeOpen } from '@fortawesome/free-regular-svg-icons';
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons/faAngleDoubleRight';
 import { ModalModule } from 'ngx-bootstrap';
 import { LoadingComponent } from './shared/loading/loading';
-import { KetQuaBaiTestComponent } from './de-luyen-tap/bai-test/ketquabaitest.component';
+import { KetQuaBaiTestComponent } from './de-luyen-tap/ketquabaitest/ketquabaitest.component';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
-// import jquery = require("jquery");
+import { BaiTestReading1Component } from './de-luyen-tap/reading-1/bai-test.component';
+import { BaiTestReading2Component } from './de-luyen-tap/reading-2/bai-test.component';
+import { BaiTestReading3Component } from './de-luyen-tap/reading-3/bai-test.component';
+import { BaiTestRutGonComponent } from './de-thi-rut-gon/bai-test/bai-test.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DeLuyenTapComponent,
     KetQuaBaiTestComponent,
+    BaiTestReading1Component,
+    BaiTestReading2Component,
+    BaiTestReading3Component,
+    BaiTestRutGonComponent,
     LoginComponent,
     BaiTest1Component,
     BaiTest2Component,
@@ -46,7 +52,6 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
     LoadingComponent,
     DeThiRutGonComponent,
     RadioButtonComponent,
-    RadioButton1Component,
     HeaderComponent,
     FooterComponent,
     BaiTestComponent

@@ -2,12 +2,12 @@
 	<label class="container">
   {{label}}
   <input 
-  type="radio" 
+  type="radio"
   [value]="item.value"
   [ngModel]="value"
   (ngModelChange)="change($event)"
   name="radio2" /> 
-  <span [innerHTML]="item.name"></span>
+  {{item.name}}
   <span class="checkmark" (click)="onChange(checked)"></span>
 </label>
 </ng-container>

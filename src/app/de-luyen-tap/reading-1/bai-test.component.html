@@ -14,12 +14,8 @@
 			<div class="question-content" id="question-content">
 				<div class="content-quiz text-center">
 					<div class="">
-						<img style="padding-bottom : 10px" class="col-sm-5" src="{{image}}">
+						<span [innerHTML]="cauHoi"></span>
 					</div>
-						<div class="">
-							<audio src="{{ mp3 }}" class="audio_file col-sm-5" controls="controls">
-							</audio>
-						</div>
 					</div>
 					<br>
 					<div class="vn-box-answer">
@@ -33,7 +29,7 @@
 										type="radio" [disabled]="true"
 										[value]="item.value" [checked]="item.value == selectedItem1"
 										name="radio6" /> 
-										{{item.name}}
+										<span [innerHTML]="item.name"></span>
 										<span class="checkmark"></span>
 									</label>
 								</div>
@@ -41,13 +37,11 @@
 						</div>
 					</div>
 					<div *ngIf="show || checkGiaiThich" [@fadeInOut-1] class="content-quiz11">
-						<span class="color-orange"><strong>Gợi ý :</strong>
-            </span>
+						<span class="color-orange"><strong>Gợi ý :</strong></span>
 						<p [innerHTML]="goiY"></p>
 					</div>
 					<div *ngIf="checkGiaiThich" [@fadeInOut-1] class="content-quiz11">
-						<span class="color-orange"><strong>Giải thích :</strong>
-            </span>
+						<span class="color-orange"><strong>Giải thích :</strong></span>
 						<p [innerHTML]="giaiThich"></p>
 						<strong>Đáp án cần chọn là {{cauDung | titlecase}}</strong>
 					</div>

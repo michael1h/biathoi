@@ -17,6 +17,7 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { PART2, URLAPI } from 'src/app/constant';
 
 export const fadeInOut = (name = "fadeInOut", duration = 0.1) =>
   trigger(name, [
@@ -137,8 +138,8 @@ export class BaiTest1Component implements OnInit, OnDestroy {
   ngOnInit() {
     this.countDown();
     this.start();
-    this.titleService.setTitle("Phần 2 HỎI - ĐÁP");
-    this.http.get('http://localhost:2705/toeic/part2').subscribe(data => {
+    this.titleService.setTitle(PART2);
+    this.http.get(URLAPI + 'part2').subscribe(data => {
       this.baiTests = data;
       this.mp3 = this.baiTests.listen.listening[this.indexCauHoi].srcMp3;
       this.image = this.baiTests.listen.listening[this.indexCauHoi].linkImage;

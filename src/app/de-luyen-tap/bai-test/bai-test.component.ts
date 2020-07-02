@@ -273,7 +273,7 @@ export interface RadioButtonItem {
   name: string;
   value: string;
 }
-
+ 
 export const RADIO_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => RadioButtonComponent),
@@ -284,9 +284,7 @@ let nextUniqueId = 0;
 
 @Component({
   selector: "radio-button",
-  providers: [RADIO_VALUE_ACCESSOR],
-  templateUrl: "./radio-button.component.html",
-  styleUrls: ["./radio-button.component.scss"]
+  providers: [RADIO_VALUE_ACCESSOR]
 })
 export class RadioButtonComponent implements ControlValueAccessor {
   private _name: string = `group-${nextUniqueId++}`;

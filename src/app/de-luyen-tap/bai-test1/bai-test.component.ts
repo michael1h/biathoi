@@ -6,9 +6,6 @@ import { Title } from "@angular/platform-browser";
 import { forwardRef, Input } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import {
-  // faTrashAlt,
-  // faSquare,
-  // faCheckSquare,
   faEnvelopeOpen,
   faArrowAltCircleRight,
   faCheckCircle,
@@ -52,7 +49,7 @@ export class BaiTest1Component implements OnInit, OnDestroy {
   modalRef: BsModalRef;
   mp3: any;
   show: boolean;
-  image: any;
+  image: any; 
   goiY: any;
   selectedItem: any;
   checkOpenModalNextCauHoi: boolean = false;
@@ -295,9 +292,7 @@ let nextUniqueId = 0;
 
 @Component({
   selector: "radio-button",
-  providers: [RADIO_VALUE_ACCESSOR],
-  templateUrl: "./radio-button.component.html",
-  styleUrls: ["./radio-button.component.scss"]
+  providers: [RADIO_VALUE_ACCESSOR]
 })
 export class RadioButtonComponent implements ControlValueAccessor {
   private _name: string = `group-${nextUniqueId++}`;

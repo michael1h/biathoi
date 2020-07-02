@@ -361,6 +361,15 @@ export class BaiTestReading2Component implements OnInit, OnDestroy {
     let dapAnDung2 = '';
     let dapAnDung3 = '';
     switch(totalCau) {
+      case 4: 
+        this.selectedItem0 = this.selectedItemChoose0;
+        this.selectedItem1 = this.selectedItemChoose1;
+        this.selectedItem2 = this.selectedItemChoose2;
+        this.selectedItem3 = this.selectedItemChoose3;
+        dapAnDung0 = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[0].cauDung;
+        dapAnDung1 = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[1].cauDung;
+        dapAnDung2 = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[2].cauDung;
+        dapAnDung3 = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[3].cauDung;
       case 2:
         this.selectedItem0 = this.selectedItemChoose0;
         this.selectedItem1 = this.selectedItemChoose1;
@@ -374,15 +383,7 @@ export class BaiTestReading2Component implements OnInit, OnDestroy {
         dapAnDung0 = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[0].cauDung;
         dapAnDung1 = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[1].cauDung;
         dapAnDung2 = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[2].cauDung;
-      case 4: 
-        this.selectedItem0 = this.selectedItemChoose0;
-        this.selectedItem1 = this.selectedItemChoose1;
-        this.selectedItem2 = this.selectedItemChoose2;
-        this.selectedItem3 = this.selectedItemChoose3;
-        dapAnDung0 = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[0].cauDung;
-        dapAnDung1 = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[1].cauDung;
-        dapAnDung2 = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[2].cauDung;
-        dapAnDung3 = this.baiTests.toeic.listDoanVan[this.indexCauHoi].listCauTraLoi[3].cauDung;
+      
     }
     
     if (this.selectedItemChoose0 == dapAnDung0) {
@@ -436,9 +437,7 @@ let nextUniqueId = 0;
 
 @Component({
   selector: "radio-button",
-  providers: [RADIO_VALUE_ACCESSOR],
-  templateUrl: "./radio-button.component.html",
-  styleUrls: ["./radio-button.component.scss"]
+  providers: [RADIO_VALUE_ACCESSOR]
 })
 export class RadioButtonComponent implements ControlValueAccessor {
   private _name: string = `group-${nextUniqueId++}`;

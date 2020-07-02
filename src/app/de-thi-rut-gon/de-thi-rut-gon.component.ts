@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {Title} from "@angular/platform-browser";
 
 @Component({
-  // selector: 'app-not-found',
   templateUrl: './de-thi-rut-gon.component.html',
   styleUrls: ['./de-thi-rut-gon.component.scss']
 })

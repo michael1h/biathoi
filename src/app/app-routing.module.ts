@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { TodoComponent } from './todo/todo.component';
-import { IsLoggedInGuard } from './shared/guards/is-logged-in.guard';
+// import { IsLoggedInGuard } from './shared/guards/is-logged-in.guard';
 import { DeThiRutGonComponent } from './de-thi-rut-gon/de-thi-rut-gon.component';
 import { DeThiFullComponent } from './de-thi-full/de-thi-full.component';
 import { DeLuyenTapComponent } from './de-luyen-tap/luyen-tap.component';
@@ -19,7 +18,7 @@ import { BaiTestRutGonComponent } from './de-thi-rut-gon/bai-test/bai-test.compo
 const routes: Routes = [
   {
     path: '',
-    component: TodoComponent,
+    component: DeThiFullComponent,
     // canActivate: [IsLoggedInGuard]
   },
   { 

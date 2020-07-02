@@ -73,7 +73,7 @@ export class BaiTestRutGonComponent implements OnInit, OnDestroy {
   goiY: any;
   checkOpenModalNextCauHoi: boolean = false;
   checkCauTiepTheo: boolean = false;
-  indexCauHoi: number = 0;
+  indexCauHoi: number = 16;
   giaiThich: any;
   cauDung: any;
   checkGiaiThich: boolean = false;
@@ -169,120 +169,6 @@ export class BaiTestRutGonComponent implements OnInit, OnDestroy {
     }
   }
 
-  // checkShowButtonNextCau() {
-  //   if (this.baiTests) {
-  //     let totalCau = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi.length;
-  //   switch (totalCau) {
-  //     case 2:
-  //       if (!this.checkCauTiepTheo && this.selectedItemChoose0 != '' && this.selectedItemChoose1 != '') {
-  //         return true;
-  //       } else {
-  //         return false;
-  //       }
-  //     case 3:
-  //       if (!this.checkCauTiepTheo && this.selectedItemChoose0 != '' && this.selectedItemChoose1
-  //       && this.selectedItemChoose2 != '') {
-  //         return true;
-  //       } else {
-  //         return false;
-  //       }
-  //     case 4:
-  //       if (!this.checkCauTiepTheo && this.selectedItemChoose0 != '' && this.selectedItemChoose1
-  //       && this.selectedItemChoose2 && this.selectedItemChoose3 != '') {
-  //         return true;
-  //       } else {
-  //         return false;
-  //       }
-  //     case 5:
-  //       if (
-  //         !this.checkCauTiepTheo 
-  //         && this.selectedItemChoose0 == '' 
-  //         && this.selectedItemChoose1 == ''
-  //         && this.selectedItemChoose2 == ''
-  //         && this.selectedItemChoose3 == ''
-  //         && this.selectedItemChoose4 == '') {
-  //         return true;
-  //       } else {
-  //         return false;
-  //       }
-  //   }
-  //   return false;
-  //   }
-  // }
-
-  // checkShowButtonOpenMal() {
-  //   if (this.baiTests) {
-  //     let totalCau = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi.length;
-  //     switch (totalCau) {
-  //       case 2:
-  //         if (this.selectedItemChoose0 == '' || this.selectedItemChoose1  == '') {
-  //           return true;
-  //         } else {
-  //           return false;
-  //         }
-  //       case 3:
-  //         if (this.selectedItemChoose0 == '' || this.selectedItemChoose1  == '' 
-  //         || this.selectedItemChoose2  == '') {
-  //           return true;
-  //         } else {
-  //           return false;
-  //         }
-  //       case 4:
-  //         if (this.selectedItemChoose0 == '' || this.selectedItemChoose1  == '' 
-  //         || this.selectedItemChoose2  == '' || this.selectedItemChoose3  == '') {
-  //           return true;
-  //         } else {
-  //           return false;
-  //         }
-  //       case 5:
-  //         if (this.checkCauTiepTheo && !this.selectedItemChoose0 && !this.selectedItemChoose4
-  //         && !this.selectedItemChoose3 && !this.selectedItemChoose1 
-  //         && !this.selectedItemChoose2) {
-  //           return true;
-  //         } else {
-  //           return false;
-  //         }
-  //     }
-  //     return false;
-  //   }
-  // }
-
-  // checkShowButtonKiemTra() {
-  //   if (this.baiTests) {
-  //     let totalCau = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi.length;
-  //     switch (totalCau) {
-  //       case 2:
-  //           if (this.selectedItemChoose0 && this.selectedItemChoose1) {
-  //             return true;
-  //           } else {
-  //             return false;
-  //           }
-  //       case 3:
-  //           if (this.selectedItemChoose0 && this.selectedItemChoose1 && this.selectedItemChoose2) {
-  //             return true;
-  //           } else {
-  //             return false;
-  //           }
-  //       case 4:
-  //           if (this.selectedItemChoose0 
-  //             && this.selectedItemChoose1 && this.selectedItemChoose2 && this.selectedItemChoose3) {
-  //             return true;
-  //           } else {
-  //             return false;
-  //           }
-  //       case 5:
-  //           if (this.selectedItemChoose0 
-  //             && this.selectedItemChoose1 && this.selectedItemChoose2 
-  //             && this.selectedItemChoose3 && this.selectedItemChoose4) {
-  //             return true;
-  //           } else {
-  //             return false;
-  //           }
-  //     }
-  //     return false;
-  //   }
-  // }
-
   ngOnInit() {
     this.isLoading = true;
     this.showCorrect = false;
@@ -321,7 +207,7 @@ export class BaiTestRutGonComponent implements OnInit, OnDestroy {
     this.randomClassCauHoi3 = Math.floor((Math.random() * 5) + 1).toString();
     this.checkUserChooseAnswer = true;
     this.checkGoiY = false;
-    this.checkCauTiepTheo = false;
+    this.checkCauTiepTheo = true;
     window.scroll({
       top: 0,
       left: 0,
@@ -403,11 +289,19 @@ export class BaiTestRutGonComponent implements OnInit, OnDestroy {
         { name: "B", value: "b" },
         { name: "C", value: "c" }
       ];
+    } else if (this.typeListen == 5) {
+      const cauA = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion[0].cauA;
+      const cauB = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion[0].cauB;
+      const cauC = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion[0].cauC;
+      const cauD = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion[0].cauD;
+      this.items = [
+        { name: cauA, value: 'a' },
+        { name: cauB, value: 'b' },
+        { name: cauC, value: 'c' },
+        { name: cauD, value: 'd' }
+      ];
     }
-    // const cauA = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi[0].cauA;
-    // const cauB = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi[0].cauB;
-    // const cauC = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi[0].cauC;
-    // const cauD = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi[0].cauD;
+    
 
     // this.cauDung = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion[0].cauDung;
     // this.goiY = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi[0].goiY;
@@ -494,9 +388,9 @@ export class BaiTestRutGonComponent implements OnInit, OnDestroy {
     this.selectedItem0 = this.selectedItemChoose0;
     this.selectedItem1 = this.selectedItemChoose1;
     this.selectedItem2 = this.selectedItemChoose2;
-    const dapAnDung0 = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi[0].cauDung;
-    const dapAnDung1 = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi[1].cauDung;
-    const dapAnDung2 = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi[2].cauDung;
+    const dapAnDung0 = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion[0].cauDung;
+    const dapAnDung1 = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion[1].cauDung;
+    const dapAnDung2 = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion[2].cauDung;
     if (this.selectedItemChoose0 == dapAnDung0) {
       this.score += 100/total;
     }
@@ -592,6 +486,35 @@ export class BaiTestRutGonComponent implements OnInit, OnDestroy {
     this.selectedItemChoose3 = '';
     this.selectedItemChoose4 = '';
   }
+
+  checkNextCauHoiType3() {
+    if(!this.checkCauTiepTheo && (this.selectedItemChoose0 == '' || this.selectedItemChoose1 == '' || this.selectedItemChoose2 == '')) {
+      return true;
+    }
+    return false;
+  }
+
+  checkOpenModalType3() {
+    if (this.checkCauTiepTheo && (this.selectedItemChoose0 == '' || this.selectedItemChoose1 == '' || this.selectedItemChoose2 == '')) {
+      return true;
+    }
+    return false;
+  }
+
+  checkNextCauHoi() {
+    if (!this.checkCauTiepTheo && this.selectedItem == '') {
+      return true;
+    }
+    return false;
+  }
+
+  checkOpenModal() {
+    if (this.checkCauTiepTheo && !this.selectedItem) {
+      return true;
+    }
+    return false;
+  }
+
   
   kiemTra() {
     this.checkUserChooseAnswer = false;
@@ -601,7 +524,6 @@ export class BaiTestRutGonComponent implements OnInit, OnDestroy {
     let total: number = 0;
     let totalCau = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion.length;
     
-    // console.log(total);
     switch (totalCau) {
       case 1: 
           this.total1CauHoi(total);
@@ -638,7 +560,7 @@ export class BaiTestRutGonComponent implements OnInit, OnDestroy {
 
 export interface RadioButtonItem {
   name: string;
-  value: string;
+  value: string;  
 }
 
 export const RADIO_VALUE_ACCESSOR: any = {
@@ -651,9 +573,7 @@ let nextUniqueId = 0;
 
 @Component({
   selector: "radio-button",
-  providers: [RADIO_VALUE_ACCESSOR],
-  templateUrl: "./radio-button.component.html",
-  styleUrls: ["./radio-button.component.scss"]
+  providers: [RADIO_VALUE_ACCESSOR]
 })
 export class RadioButtonComponent implements ControlValueAccessor {
   private _name: string = `group-${nextUniqueId++}`;

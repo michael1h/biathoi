@@ -9,8 +9,6 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './shared/services/auth.service';
 import { SignupComponent } from './signup/signup.component';
-import { TodoComponent } from './todo/todo.component';
-import { TodoService } from './shared/services/todo.service';
 import { IsLoggedInGuard } from './shared/guards/is-logged-in.guard';
 import { DeThiRutGonComponent } from './de-thi-rut-gon/de-thi-rut-gon.component';
 import { DeThiFullComponent } from './de-thi-full/de-thi-full.component';
@@ -28,7 +26,7 @@ import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons/faAngleDou
 import { ModalModule } from 'ngx-bootstrap';
 import { LoadingComponent } from './shared/loading/loading';
 import { KetQuaBaiTestComponent } from './de-luyen-tap/ketquabaitest/ketquabaitest.component';
-import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { BaiTestReading1Component } from './de-luyen-tap/reading-1/bai-test.component';
 import { BaiTestReading2Component } from './de-luyen-tap/reading-2/bai-test.component';
 import { BaiTestReading3Component } from './de-luyen-tap/reading-3/bai-test.component';
@@ -47,7 +45,6 @@ import { BaiTestRutGonComponent } from './de-thi-rut-gon/bai-test/bai-test.compo
     BaiTest1Component,
     BaiTest2Component,
     SignupComponent,
-    TodoComponent,
     DeThiFullComponent,
     LoadingComponent,
     DeThiRutGonComponent,
@@ -68,7 +65,7 @@ import { BaiTestRutGonComponent } from './de-thi-rut-gon/bai-test/bai-test.compo
     FontAwesomeModule,
     AppRoutingModule,
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, AuthService, TodoService, IsLoggedInGuard],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, AuthService, IsLoggedInGuard],
   bootstrap: [AppComponent],
   
 }

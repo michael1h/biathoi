@@ -60,7 +60,7 @@
 						</div>
 					</div>
 				</div>
-				<div *ngIf="typeListen == 3 || typeListen == 4 || typeListen == 6" class="vn-box-answer">
+				<div *ngIf="typeListen == 3 || typeListen == 4 || typeListen == 6 || typeListen == 7" class="vn-box-answer">
 					<div *ngIf="checkUserChooseAnswer" class="radio-button">
 						<div *ngFor="let item of arrayQuestionAnswer; let i = index">
 							<strong>{{indexCauHoi + 1}}.{{i + 1}}. </strong><span [innerHTML]="item.cauHoi"></span>
@@ -233,19 +233,50 @@
 					<fa-icon style="margin-right: 5px;" [icon]="faWindowMaximize"></fa-icon>
 					<span>Xem lời giải</span>
 				</a>
-				<a *ngIf="checkCauTiepTheo && selectedItemChoose0 && selectedItemChoose1 && selectedItemChoose2" (click)="kiemTra()" style="background-color: green;"
+				<a *ngIf="checkShowKiemTra(typeListen)" (click)="kiemTra()" style="background-color: green;"
 					class="false cursor-pointer text-white btn-action visible">
 					Kiểm tra
 					<fa-icon [icon]="faCheckCircle"></fa-icon>
 				</a>
-				<span *ngIf="checkOpenModalType3()">
+				<span *ngIf="checkOpenModalType3(typeListen)">
 					<a (click)="openModal(template)"
 					class="false cursor-pointer text-white btn-green btn-action visible">
 					Câu tiếp theo
 					<fa-icon [icon]="faArrowAltCircleRight"></fa-icon>
 					</a>
 				</span>
-				<span *ngIf="checkNextCauHoiType3()">
+				<span *ngIf="checkNextCauHoiType3(typeListen)">
+					<a (click)="nextCauHoi()"
+					class="false cursor-pointer text-white btn-green btn-action visible">
+					Câu tiếp theo
+					<fa-icon [icon]="faArrowAltCircleRight"></fa-icon>
+					</a>
+				</span>
+			</p>
+			<p *ngIf="typeListen == 7" class="text-center mg-top-20">
+				<a *ngIf="!checkGoiY" style="margin-bottom: 5px;" (click)="clickGoiY()"
+					class="cursor-pointer btn-white-border-green btn-action visiable">
+					<fa-icon style="margin-right: 5px;" [icon]="faLightbulb"></fa-icon>
+					<span>Gợi ý</span>
+				</a>
+				<a *ngIf="checkGoiY" style="margin-bottom: 5px;" (click)="clickXemLoiGiai()"
+					class="cursor-pointer btn-white-border-green btn-action visiable">
+					<fa-icon style="margin-right: 5px;" [icon]="faWindowMaximize"></fa-icon>
+					<span>Xem lời giải</span>
+				</a>
+				<a *ngIf="checkShowButtonKiemTraType7()" (click)="kiemTra()" style="background-color: green;"
+					class="false cursor-pointer text-white btn-action visible">
+					Kiểm tra
+					<fa-icon [icon]="faCheckCircle"></fa-icon>
+				</a>
+				<span *ngIf="!checkShowButtonKiemTraType7() && checkCauTiepTheo">
+					<a (click)="openModal(template)"
+					class="false cursor-pointer text-white btn-green btn-action visible">
+					Câu tiếp theo
+					<fa-icon [icon]="faArrowAltCircleRight"></fa-icon>
+					</a>
+				</span>
+				<span *ngIf="!checkCauTiepTheo">
 					<a (click)="nextCauHoi()"
 					class="false cursor-pointer text-white btn-green btn-action visible">
 					Câu tiếp theo

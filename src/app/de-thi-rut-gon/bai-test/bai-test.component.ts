@@ -8,7 +8,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { faEnvelopeOpen,faArrowAltCircleRight,faCheckCircle,faLightbulb,faWindowMaximize } from "@fortawesome/free-regular-svg-icons";
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { PART71, PART72, URLAPI } from 'src/app/constant';
+import { PART71, PART72, URLAPI, FULL } from 'src/app/constant';
 
 export const fadeInOut = (name = "fadeInOut", duration = 0.1) =>
   trigger(name, [
@@ -73,7 +73,7 @@ export class BaiTestRutGonComponent implements OnInit, OnDestroy {
   goiY: any;
   checkOpenModalNextCauHoi: boolean = false;
   checkCauTiepTheo: boolean = false;
-  indexCauHoi: number = 16;
+  indexCauHoi: number = 0;
   giaiThich: any;
   cauDung: any;
   checkGiaiThich: boolean = false;
@@ -180,20 +180,23 @@ export class BaiTestRutGonComponent implements OnInit, OnDestroy {
     // let total = 0;
     if (name) {
       this.titleService.setTitle(PART71);
-      this.http.get(URLAPI + 'short-test/' + name).subscribe(data => {
-        this.baiTests = data;
-        this.isLoading = false;
-        this.getDetail();
-        this.countDown();
-        if (this.baiTests) {
-          this.totalCau = this.baiTests.obj.toeic.length;
-          for (let index = 0; index < this.totalCau; index++) {
-            const e = this.baiTests.obj.toeic[index].listQuestion.length;
-            this.totalCauHoi += e;
-          }
-        }
-      });
-      this.countDown();
+      // this.http.get(URLAPI + 'short-test/' + name).subscribe(data => {
+      //   this.baiTests = data;
+      //   this.isLoading = false;
+      //   this.getDetail();
+      //   this.countDown();
+      //   if (this.baiTests) {
+      //     this.totalCau = this.baiTests.obj.toeic.length;
+      //     // alert(this.totalCau);
+      //     for (let index = 0; index < this.totalCau; index++) {
+      //       const e = this.baiTests.obj.toeic[index].listQuestion.length;
+      //       this.totalCauHoi += e;
+      //     }
+      //     this.countDown();
+      //   }
+      // });
+      this.baiTests = FULL;
+      
     }
   }
 
@@ -218,7 +221,7 @@ export class BaiTestRutGonComponent implements OnInit, OnDestroy {
     }
     this.checkOpenModalNextCauHoi = false;
 
-    if (this.indexCauHoi < this.totalCau) {
+    if (this.indexCauHoi < this.totalCau - 1) {
         this.indexCauHoi += 1;
         this.getDetail();
         this.show = false;
@@ -226,32 +229,18 @@ export class BaiTestRutGonComponent implements OnInit, OnDestroy {
         this.showInCorrect = false;
     } else {
       this.start();
-      let id = this.route.snapshot.paramMap.get('id');
-      if (id == '1') {
-        this.router.navigate(['/ket-qua-bai-thi'], {
-          state: { 
-            score: this.score,
-            hours: this.hours,
-            minute: this.minute,
-            seconds: this.seconds,
-            totalCorrect: this.totalCorrect,
-            part: '/reading-part7/1',
-            totalQuestion: this.totalCau + 1
-            }
-        });
-      } else if (id == '0') {
-        this.router.navigate(['/ket-qua-bai-thi'], {
-          state: { 
-            score: this.score,
-            hours: this.hours,
-            minute: this.minute,
-            seconds: this.seconds,
-            totalCorrect: this.totalCorrect,
-            part: '/reading-part7/0',
-            totalQuestion: this.totalCauHoi + 1
-            }
-        });
-      }
+      let name = this.route.snapshot.paramMap.get('name');
+      this.router.navigate(['/ket-qua-bai-thi'], {
+        state: { 
+          score: this.score,
+          hours: this.hours,
+          minute: this.minute,
+          seconds: this.seconds,
+          totalCorrect: this.totalCorrect,
+          part: '/mini-test/' + name,
+          totalQuestion: this.totalCau
+          }
+      });
     }
   }
 
@@ -366,8 +355,8 @@ export class BaiTestRutGonComponent implements OnInit, OnDestroy {
   total2CauHoi(total: number) {
     this.selectedItem0 = this.selectedItemChoose0;
     this.selectedItem1 = this.selectedItemChoose1;
-    const dapAnDung0 = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi[0].cauDung;
-    const dapAnDung1 = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi[1].cauDung;
+    const dapAnDung0 = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion[0].cauDung;
+    const dapAnDung1 = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion[1].cauDung;
     if (this.selectedItemChoose0 == dapAnDung0) {
       this.score += 100/total;
     }
@@ -417,10 +406,10 @@ export class BaiTestRutGonComponent implements OnInit, OnDestroy {
     this.selectedItem1 = this.selectedItemChoose1;
     this.selectedItem2 = this.selectedItemChoose2;
     this.selectedItem3 = this.selectedItemChoose3;
-    const dapAnDung0 = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi[0].cauDung;
-    const dapAnDung1 = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi[1].cauDung;
-    const dapAnDung2 = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi[2].cauDung;
-    const dapAnDung3 = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi[3].cauDung;
+    const dapAnDung0 = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion[0].cauDung;
+    const dapAnDung1 = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion[1].cauDung;
+    const dapAnDung2 = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion[2].cauDung;
+    const dapAnDung3 = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion[3].cauDung;
     if (this.selectedItemChoose0 == dapAnDung0) {
       this.score += 100/total;
     }
@@ -452,11 +441,11 @@ export class BaiTestRutGonComponent implements OnInit, OnDestroy {
     this.selectedItem2 = this.selectedItemChoose2;
     this.selectedItem3 = this.selectedItemChoose3;
     this.selectedItem4 = this.selectedItemChoose4;
-    const dapAnDung0 = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi[0].cauDung;
-    const dapAnDung1 = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi[1].cauDung;
-    const dapAnDung2 = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi[2].cauDung;
-    const dapAnDung3 = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi[3].cauDung;
-    const dapAnDung4 = this.baiTests.obj.toeic[this.indexCauHoi].listCauTraLoi[4].cauDung;
+    const dapAnDung0 = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion[0].cauDung;
+    const dapAnDung1 = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion[1].cauDung;
+    const dapAnDung2 = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion[2].cauDung;
+    const dapAnDung3 = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion[3].cauDung;
+    const dapAnDung4 = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion[4].cauDung;
     if (this.selectedItemChoose0 == dapAnDung0) {
       this.score += 100/total;
     }
@@ -486,17 +475,81 @@ export class BaiTestRutGonComponent implements OnInit, OnDestroy {
     this.selectedItemChoose3 = '';
     this.selectedItemChoose4 = '';
   }
-
-  checkNextCauHoiType3() {
-    if(!this.checkCauTiepTheo && (this.selectedItemChoose0 == '' || this.selectedItemChoose1 == '' || this.selectedItemChoose2 == '')) {
-      return true;
+  // checkCauTiepTheo && selectedItemChoose0 && selectedItemChoose1 && selectedItemChoose2
+  checkShowKiemTra(type: number) {
+    if(type == 3 || type == 4) {
+      if (this.checkCauTiepTheo && this.selectedItemChoose0 && this.selectedItemChoose1 && this.selectedItemChoose2) {
+        return true;
+      }
+    } else if (type == 6) {
+      if (this.checkCauTiepTheo && this.selectedItemChoose0 && this.selectedItemChoose1 && 
+        this.selectedItemChoose2 && this.selectedItemChoose3) {
+        return true;
+      }
+    }
+    return false;
+  }
+  checkNextCauHoiType3(type: number) {
+    if(type == 3 || type == 4) {
+      if(!this.checkCauTiepTheo && (this.selectedItemChoose0 == '' || this.selectedItemChoose1 == '' 
+      || this.selectedItemChoose2 == '')) {
+        return true;
+      }
+    } else if (type == 6) {
+      if(!this.checkCauTiepTheo && (this.selectedItemChoose0 == '' || this.selectedItemChoose1 == '' 
+      || this.selectedItemChoose2 == '' || this.selectedItemChoose3 == '')) {
+        return true;
+      }
     }
     return false;
   }
 
-  checkOpenModalType3() {
-    if (this.checkCauTiepTheo && (this.selectedItemChoose0 == '' || this.selectedItemChoose1 == '' || this.selectedItemChoose2 == '')) {
-      return true;
+  checkShowButtonKiemTraType7() {
+    if (this.baiTests) {
+      let totalCau = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion.length;
+      switch (totalCau) {
+        case 2:
+            if (this.selectedItemChoose0 && this.selectedItemChoose1) {
+              return true;
+            } else {
+              return false;
+            }
+        case 3:
+            if (this.selectedItemChoose0 && this.selectedItemChoose1 && this.selectedItemChoose2) {
+              return true;
+            } else {
+              return false;
+            }
+        case 4:
+            if (this.selectedItemChoose0 
+              && this.selectedItemChoose1 && this.selectedItemChoose2 && this.selectedItemChoose3) {
+              return true;
+            } else {
+              return false;
+            }
+        case 5:
+            if (this.selectedItemChoose0 
+              && this.selectedItemChoose1 && this.selectedItemChoose2 
+              && this.selectedItemChoose3 && this.selectedItemChoose4) {
+              return true;
+            } else {
+              return false;
+            }
+      }
+      return false;
+    }
+  }
+
+  checkOpenModalType3(type: number) {
+    if(type == 3 || type == 4) {
+      if (this.checkCauTiepTheo && (this.selectedItemChoose0 == '' || this.selectedItemChoose1 == '' || this.selectedItemChoose2 == '')) {
+        return true;
+      }
+    } else if (type == 6) {
+      if (this.checkCauTiepTheo && (this.selectedItemChoose0 == '' || this.selectedItemChoose1 == '' 
+      || this.selectedItemChoose2 == '' || this.selectedItemChoose3 == '')) {
+        return true;
+      }
     }
     return false;
   }
@@ -523,7 +576,14 @@ export class BaiTestRutGonComponent implements OnInit, OnDestroy {
     this.show = false;
     let total: number = 0;
     let totalCau = this.baiTests.obj.toeic[this.indexCauHoi].listQuestion.length;
+    this.totalCau = this.baiTests.obj.toeic.length;
+    // alert(this.totalCau);
+    for (let index = 0; index < this.totalCau; index++) {
+      const e = this.baiTests.obj.toeic[index].listQuestion.length;
+      total += e;
+    }
     
+    alert(total);
     switch (totalCau) {
       case 1: 
           this.total1CauHoi(total);

@@ -558,7 +558,6 @@ export class BaiTestReading3Component implements OnInit, OnDestroy {
       const element = this.baiTests.toeic.listDoanVan[index].listCauTraLoi.length;
       total += element;
     }
-    console.log(total);
     switch (totalCau) {
       case 2:
           this.total2CauHoi(total);
